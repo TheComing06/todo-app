@@ -8,7 +8,7 @@ public class TodoApp {
         TodoList list = new TodoList();
         Scanner scanner = new Scanner(System.in);
         System.out.println("Simple Todo CLI. Commands: add <task>, " +
-                "remove <index>, list, exit");
+                "remove <index>, list, clear, done <index>, search <string> exit");
 
         while (true) {
             System.out.print("> ");
@@ -42,11 +42,32 @@ public class TodoApp {
                     }
                     break;
                 case "list":
-                    List<String> all = list.getAll();
+                    List<TaskChecker> all = list.getAll();
                     for (int i = 0; i < all.size(); i++) {
                         System.out.printf("%d: %s%n", i, all.get(i));
                     }
                     if (all.isEmpty()) System.out.println("(empty)");
+                    break;
+                case "clear":
+                    list.clear();
+                    System.out.println("list cleared.");
+                    break;
+                case "done":
+                    if (parts.length > 1) {
+                        try {
+                            int idx = Integer.parseInt(parts[1]);
+                            if (list.done(idx)) System.out.println("Task " + idx + " is done.");
+                            else System.out.println("Index out of range.");
+                        } catch (NumberFormatException e) {
+                            System.out.println("Invalid index.");
+                        }
+                    } else {
+                        System.out.println("Usage: remove <index>");
+                    }
+                    break;
+                case "search":
+                    var searched = list.search(parts[1]);
+                    System.out.println(searched);
                     break;
                 case "exit":
                     System.out.println("Bye!");

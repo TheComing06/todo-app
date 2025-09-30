@@ -12,7 +12,7 @@ public class TodoListTest {
         TodoList t = new TodoList();
         t.add(" task1 ");
         assertEquals(1, t.size());
-        assertEquals("task1", t.getAll().getFirst());
+        assertEquals("task1 [ ]", t.getAll().getFirst().toString());
     }
 
     @Test
@@ -30,5 +30,28 @@ public class TodoListTest {
         TodoList t = new TodoList();
         t.add("    ");
         assertEquals(0, t.size());
+    }
+
+    @Test
+    void clear() {
+        TodoList t = new TodoList();
+        t.add("abs");
+        t.add("123");
+        t.clear();
+        assertEquals(0, t.size());
+    }
+
+    @Test
+    void done() {
+        TodoList t = new TodoList();
+        t.add("abs");
+        assertTrue(t.done(0));
+    }
+
+    @Test
+    void search() {
+        TodoList t = new TodoList();
+        t.add("abs");
+        assertEquals("abs [ ]", t.search("a"));
     }
 }
