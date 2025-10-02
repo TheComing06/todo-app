@@ -41,7 +41,7 @@ jobs:
           echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Build (run tests and create fat JAR)
-        run: ./gradlew --no-daemon clean build
+        run: ./gradlew --no-daemon clean build --info
         env:
           JAVA_HOME: ${{ env.JAVA_HOME_23_X64 || '' }}
 
